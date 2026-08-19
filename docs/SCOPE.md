@@ -126,8 +126,11 @@ The lane canvas sits **in the middle**, with cards on both sides.
 ### Cards: collapsed by default, expand on scroll focus
 
 - Default state: a **strip** — game, who, year range.
-- Auto-packed: a card goes to whichever side has room; **not** strict left-right
-  alternation.
+- Auto-packed: each card goes to whichever column is currently less full, with
+  the side its spine sits on used only to break ties. **Not** strict left-right
+  alternation, and deliberately not "follow the spine" either: most Runs involve
+  the people in the leftmost lanes, so following the spine put almost every card
+  on the left and left the right column empty.
 - The Run in scroll focus **expands** into a full card (description, Moments), into
   space reserved in advance so nothing jumps.
 
@@ -144,6 +147,16 @@ requirement above.
 
 **Known cost:** expansion plus reserved space plus scroll focus is the most delicate
 part of the v1 frontend, and needs distinct behaviour under `prefers-reduced-motion`.
+
+### A third layout, found during implementation
+
+The two planned layouts left a gap. `split` (canvas centred, cards both sides)
+needs room for two readable strips, and below roughly 980px of content width
+they degrade into slivers — but that is far too wide to justify dropping to the
+phone rail. So there is a middle **stacked** layout: canvas on the left at its
+natural width, one column of full-width cards beside it. The phone rail is the
+same stacked layout with the canvas squeezed down to a texture, which means
+there are two layouts in the code rather than three.
 
 ### Mobile
 

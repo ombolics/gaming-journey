@@ -1,0 +1,52 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  # So a broken build can be redeployed without an empty commit.
+  workflow_dispatch:
+
+# Let a run finish rather than cancelling it: a half-finished deploy is worse
+# than a slightly stale one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Typecheck and lint here rather than only building: the data is
+      # hand-edited for months, and a typo in a Run should fail the deploy
+      # rather than ship a blank page.
+      - run: npx tsc --noEmit -p tsconfig.app.json
+      - run: npm run lint
+      - run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

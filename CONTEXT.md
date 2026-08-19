@@ -44,6 +44,13 @@ All three must be visually distinguishable. **Faded is not missing data** — it
 valid state in its own right, and must never be filled in with an invented end date.
 _Avoid_: end, finished, stopped (as an umbrella term for all three)
 
+**Unverified** — _UI: "Ellenőrizetlen"_
+A Run whose timing is still a hypothesis rather than something checked against
+evidence or the group's memory. Distinct from low Precision: a Run can be honestly
+known to year precision and be verified, or be month-precise and still be a guess.
+Clearing this flag, Run by Run, is what data collection consists of.
+_Avoid_: draft, todo, provisional
+
 ### People
 
 **Member** — _UI: "Tag"_

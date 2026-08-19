@@ -1,111 +1,459 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  --base: #14121c;
+  --raised: #1a1725;
+  --text: #ede7f6;
+  --muted: #8d84a6;
+  --accent: #f7e3bd;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+* {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  background: var(--base);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 100%;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+/* ---------------------------------------------------------------- hero -- */
+
+.hero {
+  min-height: 84vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1.5rem;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
+.hero__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  /* Small text reads better with a touch of positive tracking. */
+  letter-spacing: 0.22em;
+  color: var(--accent);
   margin: 0;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 8vw, 5rem);
+  font-weight: 600;
+  /* Large text needs negative tracking and tight leading. */
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+  margin: 0.5rem 0 0;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+.hero__lead {
+  color: var(--muted);
+  max-width: 34ch;
+  line-height: 1.65;
+  margin: 0.9rem 0 2.6rem;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.5rem, 6vw, 4rem);
+  margin: 0;
+}
+
+.stats__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.stats__value {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.stats__label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+.hero__scroll {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-top: 3.5rem;
+}
+
+/* -------------------------------------------------------- member header -- */
+
+/* A floating translucent layer with the timeline passing underneath, rather
+   than an opaque strip that eats a band off the top of the page. */
+.member-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: center;
+  padding: 0.7rem 1rem;
+  background: rgba(20, 18, 28, 0.62);
+  backdrop-filter: blur(20px) saturate(160%);
+  /* A bright top edge, as though light catches the material. */
+  border-bottom: 1px solid rgba(237, 231, 246, 0.06);
+}
+
+.member-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid rgba(237, 231, 246, 0.1);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  cursor: pointer;
+  /* Vibrancy: over a blurred surface, text wants a little more weight. */
+  font-weight: 500;
+}
+
+.member-chip:active {
+  transform: scale(0.96);
+}
+
+.member-chip--pinned {
+  border-color: var(--accent);
+  background: rgba(247, 227, 189, 0.12);
+}
+
+.member-chip--guest {
+  opacity: 0.72;
+  font-size: 0.76rem;
+}
+
+.member-chip__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+/* ------------------------------------------------------------ timeline -- */
+
+.canvas {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.timeline {
+  position: relative;
+  width: 100%;
+}
+
+.timeline__canvas {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.timeline--stacked .timeline__canvas {
+  transform: none;
+}
+
+.timeline__canvas svg {
+  display: block;
+}
+
+.timeline__years {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.timeline__year {
+  position: absolute;
+  left: 1.5rem;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  opacity: 0.75;
+}
+
+.timeline__era-band {
+  position: absolute;
+  left: -1.5rem;
+  right: -1.5rem;
+  pointer-events: none;
+}
+
+.timeline__era-band--light {
+  background: rgba(237, 231, 246, 0.018);
+}
+
+.timeline__era-band--dark {
+  background: rgba(0, 0, 0, 0.16);
+}
+
+/* Set vertically down the very edge of its band: a horizontal label sat in
+   the same strip as the left-hand cards and got covered by them. */
+.timeline__era {
+  position: absolute;
+  left: 0.5rem;
+  top: 1.2rem;
+  writing-mode: vertical-rl;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.55;
+}
+
+.timeline__card {
+  position: absolute;
+}
+
+/* Hidden because an expanded card is sitting over it. Not display:none — it
+   should fade rather than blink, and it must keep its place in the layout. */
+.timeline__card--covered {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.timeline__card--left {
+  left: 0;
+  padding-left: 3.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.timeline__card--right {
+  right: 0;
+}
+
+.timeline__card--stacked {
+  right: 0;
+}
+
+/* ---------------------------------------------------------------- card -- */
+
+.card {
+  /* Positioned, so that z-index on the expanded state actually applies —
+     z-index is inert on a static element, which silently let neighbouring
+     strips paint over an expanded card. */
+  position: relative;
+  width: 100%;
+  max-width: 30rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgba(237, 231, 246, 0.08);
+  border-radius: 12px;
+  background: rgba(26, 23, 37, 0.72);
+  backdrop-filter: blur(12px);
+  cursor: default;
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.card--expanded {
+  /* Lifted above its neighbours rather than pushing them out of the way — so
+     it has to be opaque, or the strip underneath reads straight through it. */
+  z-index: 10;
+  background: #221e30;
+  backdrop-filter: none;
+  border-color: rgba(247, 227, 189, 0.35);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55);
+}
+
+.card--dimmed {
+  opacity: 0.22;
+}
+
+.card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.8rem;
+}
+
+.card__title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.card__span {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.card__members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.7rem;
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+.card__member {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.card__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex: none;
+}
+
+/* The collapsed strip: participants as colour only, so the height is fixed. */
+.card__dots {
+  display: flex;
+  align-items: center;
+  gap: 0.32rem;
+  height: 1rem;
+  margin: 0.5rem 0 0;
+}
+
+.card__body {
+  margin-top: 0.7rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid rgba(237, 231, 246, 0.07);
+}
+
+.card__meta {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  opacity: 0.8;
+  margin: 0 0 0.5rem;
+}
+
+.card__description {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.card__empty {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--muted);
+  font-style: italic;
+  margin: 0;
+}
+
+.card__moments {
+  margin: 0.6rem 0 0;
+  padding-left: 1rem;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.card__unverified {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.7;
+  margin: 0.7rem 0 0;
+}
+
+/* ------------------------------------------------------------- closing -- */
+
+.closing {
+  text-align: center;
+  padding: 8rem 1.5rem 10rem;
+}
+
+.closing__line {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.closing__meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-top: 0.8rem;
+}
+
+/* --------------------------------------------------------- preferences -- */
+
+/* Reduced motion means a gentler equivalent, not no feedback: the highlight
+   and the expansion still happen, they just cross-fade instead of springing. */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 120ms !important;
+  }
+
+  .member-chip:active {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .member-header {
+    background: var(--base);
+    backdrop-filter: none;
+  }
+
+  .card {
+    background: var(--raised);
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .card {
+    background: var(--base);
+    border-color: rgba(237, 231, 246, 0.4);
+  }
+
+  .card--dimmed {
+    opacity: 0.5;
+  }
 }

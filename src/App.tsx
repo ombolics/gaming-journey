@@ -1,122 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { Timeline } from './components/Timeline'
+import { useCanvasWidth } from './components/useCanvasWidth'
+import { GAMES } from './data/games'
+import { MEMBERS } from './data/members'
+import { RUNS } from './data/runs'
+import { FIRST_YEAR } from './timeline/layout'
+import { nowAsYear } from './timeline/time'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const width = useCanvasWidth()
+
+  // The hero counts what is actually in the data, so it grows as the data
+  // lands rather than reading as empty (docs/SCOPE.md).
+  const stats = [
+    { value: Math.floor(nowAsYear()) - FIRST_YEAR, label: 'év' },
+    { value: MEMBERS.length, label: 'ember' },
+    { value: GAMES.length, label: 'játék' },
+    { value: RUNS.length, label: 'közös szakasz' },
+  ]
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      <header className="hero">
+        <p className="hero__eyebrow">2014 —</p>
+        <h1 className="hero__title">Gaming Journey</h1>
+        <p className="hero__lead">
+          Ennyi minden történt velünk, mióta először összeültünk játszani.
+        </p>
+        <dl className="stats">
+          {stats.map((stat) => (
+            <div className="stats__item" key={stat.label}>
+              <dt className="stats__value">{stat.value}</dt>
+              <dd className="stats__label">{stat.label}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="hero__scroll">görgess lefelé</p>
+      </header>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      <main className="canvas">
+        <Timeline width={width} />
+      </main>
     </>
   )
 }
-
-export default App
